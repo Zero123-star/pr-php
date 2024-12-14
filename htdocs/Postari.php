@@ -1,9 +1,8 @@
 <?php 
 session_start();
-echo "Esti conectat ca si: " . $_SESSION['user'];
-echo $_SESSION['logged'];
+echo "Esti conectat ca si: " . $_SESSION['user'] . " " . $_SESSION['id'];
 $host = "localhost";
-$db = "companietransport";
+$db = "CompanieTransport";
 $usr = "root";
 $pas1 = "";
 $conn = new mysqli($host, $usr, $pas1, $db);
@@ -18,6 +17,10 @@ $conn = new mysqli($host, $usr, $pas1, $db);
 <div>
 <a href="CreazaPostare.php">CreazaPostare</a>
 </div>
+<div>
+<a href="StergePostare.php">StergePostare</a>
+</div>
+<a href="StergeMesaj.php">StergeMesaj</a>
 <div>
 <a href="CreazaMesaj.php">TrimiteMesaj</a>
 </div>
