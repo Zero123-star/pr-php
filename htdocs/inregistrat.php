@@ -3,21 +3,23 @@ session_start();
 $pas = $_POST["pas1"];
 $nume = $_POST["nume"];
 $email = $_POST["email"];
-$host = "localhost";
-$db = "companietransport";
-$usr = "root";
-$pas1 = "";
-$conn = new mysqli($host, $usr, $pas1, $db);
+require_once 'db.php';
 if ($conn->error)
     echo "Eroare conectare data de baze. Revino mai tarziu";
-$aux = $conn->query("Select * from utilizator where parola='$pas' and nume='$nume'");
+$aux = $conn->prepare("Select * from utilizator where nume=?");
+$aux->bind_param('s',$nume);
+$aux->execute();
+$aux=$aux->get_result();
 $delta = $aux->fetch_row();
 $aux2 = $conn->query("Select count(*) from utilizator");
 $Beta = $aux2->fetch_column();
 $Beta+=1;
 if($delta==null)
 {
-$conn->query("Insert into utilizator(email,id,nume,parola,rol) values ('$email',$Beta,'$nume','$pas','Utilizator')");
+$aux=$conn->prepare("Insert into utilizator(email,id,nume,parola,rol) values (?,?,?,?,'Utilizator')");
+//echo "Insert into utilizator(email,id,nume,parola,rol) values ($email,$Beta,$nume,$pas,'Utilizator')";
+$aux->bind_param('siss',$email,$Beta,$nume,$pas);
+$aux->execute();
 echo "Utilizatorul a fost inregistrat cu succes!";
 }
 else
