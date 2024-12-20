@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/css/culoare.css">
+    <link rel="stylesheet" href="/dashboard/stylesheets/culoare.css">
 </head>
 
 <body>
@@ -10,7 +10,7 @@
 
 <p>Inregistreazate:</p>
     <div id="register">
-        <form method="POST" action="inregistrat.php" id="formular">
+        <form method="POST" action="/initial/inregistrat.php" id="formular">
             <label>Nume:</label>
             <input type="text" id="input" name="nume" required>
             <label>Parola:</label>

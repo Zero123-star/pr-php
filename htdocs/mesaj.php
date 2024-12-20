@@ -1,10 +1,6 @@
 <?php
 $id = $_GET["id"];
-$host = "localhost";
-$db = "companietransport";
-$usr = "root";
-$pas1 = "";
-$conn = new mysqli($host, $usr, $pas1, $db);
+require_once 'boot.php';
 $aux = $conn->query("Select senderid,descriere from Mesaj where mesajid=$id");
 $be = $aux->fetch_row();
 $id2=$be[0];

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php 
+require_once 'boot.php';
+
+?>
 <html lang="en">
 
 <head>
@@ -53,6 +57,7 @@
             <label>Titlu:</label>
             <input type="text" id="titlu" class="small-form" required name="titlu">
         </div>
+        <input type="hidden" name="cod" value="<?php echo $_SESSION['cod'] ?>">
         <div>
         <label>Trimite</label>
         <input type="submit" id="input">

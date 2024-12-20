@@ -1,13 +1,8 @@
 <html>
 <?php 
-session_start();
+require_once 'boot.php';
 echo "Esti conectat ca si: " . $_SESSION['user'];
-$host = "localhost";
-$db = "CompanieTransport";
-$usr = "root";
-$pas1 = "";
 $idutilizator=$_SESSION['id'];
-$conn = new mysqli($host, $usr, $pas1, $db);
 $aux = $conn->query("Select idPostare,nume_postare from postare where creator_id=$idutilizator");
 while($alpha = $aux->fetch_row())
         {

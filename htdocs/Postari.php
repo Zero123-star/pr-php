@@ -1,11 +1,11 @@
 <?php 
-session_start();
+require_once 'boot.php';
+if(!isset($_SESSION['id']))
+header("Location: Init.php");
+
+
+
 echo "Esti conectat ca si: " . $_SESSION['user'] . " " . $_SESSION['id'];
-$host = "localhost";
-$db = "CompanieTransport";
-$usr = "root";
-$pas1 = "";
-$conn = new mysqli($host, $usr, $pas1, $db);
 ?>
 
 <!DOCTYPE html>
@@ -18,18 +18,32 @@ $conn = new mysqli($host, $usr, $pas1, $db);
 <a href="CreazaPostare.php">CreazaPostare</a>
 </div>
 <div>
-<a href="StergePostare.php">StergePostare</a>
+<a href="logout.php">Logout</a>
 </div>
-<a href="StergeMesaj.php">StergeMesaj</a>
 <div>
+<a href="StergePostare.php">PostarileTale</a>
+</div>
+<div>
+<?php 
+if($_SESSION['rol']=='moderator' || $_SESSION['rol']){
+?>
+<div>
+<a href="administrator.php">(AdminOnly)Meniu</a>  
+</div>
+<?php
+}
+?>
 <a href="CreazaMesaj.php">TrimiteMesaj</a>
 </div>
     <h1>MesajePrimite</h1>
     <ul>
     <?php 
         $usrid=$_SESSION['id'];
-        $aux = $conn->query("Select mesajid from Mesaj where receiverid=$usrid");
-        while($alpha = $aux->fetch_row())
+        $aux = $conn->prepare("Select mesajid from Mesaj where receiverid=?");
+        $aux->bind_param("i",$usrid);
+        $aux->execute();
+        $auxi=$aux->get_result();
+        while($alpha = $auxi->fetch_row())
         {
             $id=$alpha[0];
             ?>
