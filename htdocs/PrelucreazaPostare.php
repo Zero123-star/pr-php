@@ -5,10 +5,16 @@ if (!isset($_SESSION['logged']) || !isset($_SESSION['id'])) {
     header("Location: Init.php");
     exit;
 }
-echo $_POST['cod'];
+//echo $_POST['cod'];
 $rs=comparecod($_SESSION['cod'],$_POST['cod']);
 if($rs==0)
 header("Location: Init.php");
+if($_POST['capt']!=$_SESSION['cap'])
+{
+    echo "Captcha incorrect!";
+    exit;
+    //header("Location: banned.php");
+}
 $suma = $_POST['val'];
 $adresa = $_POST['adresa'];
 $titlu = $_POST['titlu'];

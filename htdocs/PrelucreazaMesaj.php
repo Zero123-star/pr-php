@@ -5,6 +5,12 @@ if (!isset($_SESSION['logged']) || !isset($_SESSION['id'])) {
     header("Location: Init.php");
     exit;
 }
+if($_POST['capt']!=$_SESSION['cap'])
+{
+    echo "Captcha incorrect!";
+    exit;
+    //header("Location: banned.php");
+}
 if(comparecod($_SESSION['cod'],$_POST['cod'])==0)
 header("Location: Init.php");
 $nume = $_POST['val'];

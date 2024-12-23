@@ -44,6 +44,11 @@ require_once 'boot.php';
             <textarea id="descriere" class="large-form" required name="desc"></textarea>
         </div>
         <div>
+        <label>Captcha:</label>
+        <img src="captcha.php">
+        <input type="text" name="capt" required>
+        </div>
+        <div>
             <label>Utilizator:</label>
             <input type="text" id="comanda" class="small-form" required name="val">
         </div>
