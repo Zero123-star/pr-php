@@ -3,7 +3,7 @@ session_start();
 $pas = $_POST["pas1"];
 $nume = $_POST["nume"];
 $email = $_POST["email"];
-require_once '../db.php';
+require_once 'db.php';
 if ($conn->error)
     echo "Eroare conectare data de baze. Revino mai tarziu";
 $aux = $conn->prepare("Select * from utilizator where nume=?");
