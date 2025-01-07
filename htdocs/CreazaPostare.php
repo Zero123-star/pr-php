@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
 require_once 'boot.php';
-
 ?>
 <html lang="en">
 

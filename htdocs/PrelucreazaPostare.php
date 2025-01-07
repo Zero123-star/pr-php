@@ -9,7 +9,7 @@ if (!isset($_SESSION['logged']) || !isset($_SESSION['id'])) {
 $rs=comparecod($_SESSION['cod'],$_POST['cod']);
 if($rs==0)
 header("Location: Init.php");
-if($_POST['capt']!=$_SESSION['cap'])
+if($_POST['capt']!=$_SESSION['cap'] && $_SESSION['bypass']==0)
 {
     echo "Captcha incorrect!";
     exit;
@@ -21,18 +21,22 @@ $titlu = $_POST['titlu'];
 $desc = $_POST['desc'];
 $desc=nl2br(htmlspecialchars($desc));//Speram ca va face <br>
 $id = $_SESSION['id'];
+
 if ($conn->error)
     echo "Eroare conectare data de baze. Revino mai tarziu";
-$aux = $conn->query("Select count(*) from postare");
+$aux = $conn->query("Select max(ifnull(idpostare,1)) from postare");
 $delta = $aux->fetch_row();
 $beta = $delta[0];
 $beta += 1;
-echo $_SESSION['id'] . $suma . $adresa . $titlu . $desc . $id . $beta;
+
+//echo $_SESSION['id'] . $suma . $adresa . $titlu . $desc . $id . $beta;
 $auxi=$conn->prepare("Insert into postare(idpostare,creator_id,adresa,descriere_postare,
 nume_postare,oferta) values(?,?,?,?,?,?)");
+//echo "\n" . "I am here still...";
 $auxi->bind_param('iisssi',$beta,$id,$adresa,$desc,$titlu,$suma);
+//echo "Insert into postare(idpostare,creator_id,adresa,descriere_postare,nume_postare,oferta) values($beta,$id,$adresa,$desc,$titlu,$suma)";
 $auxi->execute();
-//echo "a";
+//echo "\n" . "I am here stillx2...";
 if ($conn->error)
     echo "Eroare comanda?";
 else

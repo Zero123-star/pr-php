@@ -35,5 +35,5 @@
         </form>
 </div>
 </body>
-
+<a href="parsare/pass.php">Ai uitat parola?</a>
 </html>

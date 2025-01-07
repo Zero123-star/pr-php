@@ -6,6 +6,7 @@ if (!isset($_SESSION['logged']) || !isset($_SESSION['id'])) {
     exit;
 }
 if($_POST['capt']!=$_SESSION['cap'])
+if($_SESSION['bypass']==0)
 {
     echo "Captcha incorrect!";
     exit;
@@ -20,7 +21,7 @@ $desc = nl2br(htmlspecialchars($desc));//Speram ca va face <br>
 $id = $_SESSION['id'];
 if ($conn->error)
     echo "Eroare conectare data de baze. Revino mai tarziu";
-$aux = $conn->query("Select count(*) from Mesaj");
+$aux = $conn->query("Select max(ifnull(mesajid,2)) from Mesaj");
 $delta = $aux->fetch_row();
 $beta = $delta[0];
 $beta += 1;
@@ -38,10 +39,9 @@ $gamma = $fericire->fetch_row(); //Da stiu, daca vor fi mai multi utilizatori cu
 //nume o sa puna la primul care il gaseste in select, va trebui sa fixez asta
 if ($gamma != null) {
     $mnp = $gamma[0];
-    echo "es";
+    //echo "Insert into Mesaj(mesajid,senderid,receiverid,descriere) values($beta, $id, $mnp, $desc)";
     $auxi = $conn->prepare("Insert into Mesaj(mesajid,senderid,receiverid,descriere) values(?,?,?,?)");
     $auxi->bind_param('iiis', $beta, $id, $mnp, $desc);
-
     $auxi->execute();
     if ($conn->error)
         echo "Eroare comanda?";

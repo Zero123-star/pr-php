@@ -8,7 +8,8 @@ $idutilizator = $_SESSION['id'];
 $aux = $conn->query("Select * from postare where idpostare=$id");
 $be = $aux->fetch_row();
 $num=0;
-for ($i = 2; $i < sizeof($be); $i++) {
+//TODO: sa dau direct un fetch assoc, codul asta nu e flexibil
+for ($i = 2; $i < sizeof($be)-1; $i++) {
     switch ($i) {
         case 2:
             echo "Titlu: ";
@@ -47,7 +48,7 @@ if($be[1]==$idutilizator || $_SESSION['rol']=='moderator' || $_SESSION['rol']=='
 }
 ?>
 <?php 
-if($_SESSION['rol']=='curier')
+if($_SESSION['rol']=='curier' && $be[6]==0)
 {
 ?>
 <form method="POST" action="processoffer.php?id=<?php echo $id ?>">
@@ -57,5 +58,28 @@ Oferta:<input type="number" name="val" required>
 </form>
 <?php
 }
+?>
+<a href="makeorderpdf.php?<?php echo "id=$id" ?>">Creeaza pdf</a>
+<br>
+<?php 
+if($be[1]==$_SESSION['id'] && $be[6]==0)//Esti creatorul postarii si inca nu e inchisa
+{
+?>
+<form method="POST" action="parsare/endoffer.php?id=<?php echo $id ?>">
+Inchide postarea si alege curier: <input type="text" name="util" required>
+<input type="submit" value="trimite">
+</form>
+<?php 
+}
+
+?>
+<?php 
+if ($be[6]==1){
+echo "<br><br>Postare inchisa!";
+
+
+} 
+
+
 ?>
 </html>

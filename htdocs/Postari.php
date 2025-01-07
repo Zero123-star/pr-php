@@ -18,14 +18,20 @@ echo "Esti conectat ca si: " . $_SESSION['user'] . " " . $_SESSION['id'];
 <a href="CreazaPostare.php">CreazaPostare</a>
 </div>
 <div>
+<a href="parsare/try.php">Masini oferite curierilor</a>
+</div>
+<div>
 <a href="logout.php">Logout</a>
 </div>
 <div>
 <a href="StergePostare.php">PostarileTale</a>
 </div>
 <div>
+<a href="parsare/graf.php">Statistici</a>
+</div>
+<div>
 <?php 
-if($_SESSION['rol']=='moderator' || $_SESSION['rol']){
+if($_SESSION['rol']=='moderator' || $_SESSION['rol']=='administrator'){
 ?>
 <div>
 <a href="administrator.php">(AdminOnly)Meniu</a>  
